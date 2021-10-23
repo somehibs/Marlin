@@ -719,7 +719,7 @@ void GCodeQueue::advance() {
 
     if (queue.auto_buffer_report_interval && ELAPSED(ms, queue.next_buffer_report_ms)) {
       queue.next_buffer_report_ms = ms + 1000UL * queue.auto_buffer_report_interval;
-      PORT_REDIRECT(SERIAL_BOTH);
+      PORT_REDIRECT(SerialMask::All);
       report_buffer_statistics();
       PORT_RESTORE();
     }
