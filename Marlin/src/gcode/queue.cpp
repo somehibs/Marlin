@@ -692,7 +692,7 @@ void GCodeQueue::advance() {
 #if ENABLED(BUFFER_MONITORING)
 
   void GCodeQueue::report_buffer_statistics() {
-    SERIAL_ECHOLNPGM("D576"
+    SERIAL_ECHOLNPGM("M599"
       " P:", planner.moves_free(),         " ", -planner_buffer_underruns, " (", max_planner_buffer_empty_duration, ")"
       " B:", BUFSIZE - ring_buffer.length, " ", -command_buffer_underruns, " (", max_command_buffer_empty_duration, ")"
     );

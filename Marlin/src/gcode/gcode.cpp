@@ -876,6 +876,32 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 575: M575(); break;                                  // M575: Set serial baudrate
       #endif
 
+
+      /**
+       * M599: Return buffer stats or set the auto-report interval.
+       * Usage: M599 [S<seconds>]
+       *
+       * With no parameters emits the following output:
+       * "M599 P<nn> B<nn> PU<nn> PD<nn> BU<nn> BD<nn>"
+       * Where:
+       *   P : Planner buffers free
+       *   B : Command buffers free
+       *   PU: Planner buffer underruns (since the last report)
+       *   PD: Longest duration (ms) the planner buffer was empty (since the last report)
+       *   BU: Command buffer underruns (since the last report)
+       *   BD: Longest duration (ms) command buffer was empty (since the last report)
+       */
+      #if ENABLED(BUFFER_MONITORING)
+        case 599: {
+        if (parser.seenval('S')) {
+          queue.set_auto_report_interval((uint8_t)parser.value_byte());
+        } else {
+          queue.report_buffer_statistics();
+        }
+      }
+      break;
+      #endif
+
       #if ENABLED(ADVANCED_PAUSE_FEATURE)
         case 600: M600(); break;                                  // M600: Pause for Filament Change
         case 603: M603(); break;                                  // M603: Configure Filament Change
