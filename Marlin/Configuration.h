@@ -641,7 +641,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 127 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 192 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
   //#define MIN_BED_POWER 0
@@ -649,11 +649,14 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 138.08
-  #define DEFAULT_bedKi 26.80
-  #define DEFAULT_bedKd 475.95
+  //#define DEFAULT_bedKp 138.08
+  //#define DEFAULT_bedKi 26.80
+  //#define DEFAULT_bedKd 475.95
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
+  #define DEFAULT_bedKp 100.00
+  #define DEFAULT_bedKi 18.00
+  #define DEFAULT_bedKd 300.00
 #endif // PIDTEMPBED
 
 //===========================================================================
@@ -1280,7 +1283,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
